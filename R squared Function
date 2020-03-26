@@ -1,0 +1,29 @@
+#Function for R squared using R
+
+#Loading Necessary libriries
+
+library(Matching)
+data("lalonde")
+
+
+#Structure of the data
+str(lalonde)  # 445 Observations of 12 variables
+
+
+#Constructing linear model
+Reg <- lm(re78~u75, data = lalonde)
+summary(Reg)   #R-squared 0.0007721
+
+
+#Function for R squared. 
+R_squared <- function(y,ypred){
+      rss <- sum((y - ypred)^2)
+      tss <- sum((y - mean(y))^2)
+      p <- rss/tss
+      return(1-p)
+}
+
+str(lalonde)
+model <- lm(re78~age, data=lalonde)
+R_squared(lalonde$re78, model$fitted.values)    #R-squared 0.0007721
+summary(model)$r.sq                             #R-squared 0.0007721
